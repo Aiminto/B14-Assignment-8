@@ -5,9 +5,10 @@ import { usePathname } from 'next/navigation';
 import { Building, CalendarCheck, CirclePlus } from 'lucide-react';
 
 const navItems = [
-    { href: '/dashboard/add-facility', label: 'Add Facility', icon: CirclePlus },
+    // { href: '/dashboard/add-facility', label: 'Add Facility', icon: CirclePlus },
     { href: '/dashboard/event-booking', label: 'Event Booking', icon: CalendarCheck },
-    { href: '/dashboard/event-facilities', label: 'Event Facilities', icon: Building },
+    // { href: '/dashboard/event-facilities', label: 'Event Facilities', icon: Building },
+    { href: '/dashboard/event2-booking', label: 'Event Facilities', icon: Building },
 ];
 
 const Sidebar = () => {

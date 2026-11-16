@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import EventCard from "@/components/EventCard";
-import { featuredEvents, upcomingEvents } from "@/lib/data";
+import { allEvents } from "@/lib/data";
 
-const ALL_EVENTS = [...featuredEvents, ...upcomingEvents];
+const ALL_EVENTS = allEvents;
 
 const SORT_OPTIONS = [
   { value: "relevance", label: "Relevance" },

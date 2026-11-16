@@ -3,13 +3,26 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Bell, Menu, User, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Button } from "./ui/button";
+
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
   { label: "Events", href: "/events" },
   { label: "Categories", href: "/categories" },
   { label: "My Ticket", href: "/my-ticket" },
+
 ];
 
 function isActive(pathname: string, href: string) {
@@ -18,6 +31,13 @@ function isActive(pathname: string, href: string) {
 }
 
 export default function Navbar() {
+
+  const { data: session } = authClient.useSession()
+  const user = session?.user;
+  const handleSighOut = () => {
+    authClient.signOut();
+  }
+  console.log(user, "navbar")
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -25,7 +45,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-md">
       <div className="mx-auto flex h-[72px] w-full max-w-[1360px] items-center justify-between gap-6 px-6 md:px-10">
         <Link href="/" className="text-2xl font-bold tracking-tight">
-          Event.
+          Event-AIM
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex" aria-label="Main">
@@ -45,20 +65,61 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3 md:gap-4">
-          <Link
-            href="/events"
-            aria-label="Notifications"
-            className="hidden size-10 place-items-center rounded-full text-foreground transition-colors hover:bg-muted sm:grid"
-          >
-            <Bell className="size-5" />
-          </Link>
-          <Link
-            href="/my-ticket"
-            aria-label="My account"
-            className="hidden size-9 place-items-center rounded-full bg-muted text-foreground transition-colors hover:bg-muted/70 sm:grid"
-          >
-            <User className="size-5" />
-          </Link>
+           <Link
+                href="/profile"
+                className="hidden rounded-full border border-border px-5 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-muted sm:inline-flex"
+              >
+                Profile
+              </Link>
+
+          {
+            user ? <Popover>
+              <PopoverTrigger
+                aria-label="Open account menu"
+                render={
+                  <button
+                    type="button"
+                    className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                  >
+                    <Avatar>
+                      <AvatarImage
+                        referrerPolicy="no-referrer"
+                        src={user?.image as string}
+                      />
+                      <AvatarFallback>{user?.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                  </button>
+                }
+              />
+              <PopoverContent>
+                <PopoverHeader>
+                  <PopoverTitle>{user?.name}</PopoverTitle>
+                  <PopoverDescription>
+                    {user?.email} <br />
+                    <Button onClick={handleSighOut} variant={'destructive'}>Signout</Button>
+
+                  </PopoverDescription>
+                </PopoverHeader>
+              </PopoverContent>
+            </Popover> : <>
+              <Link
+                href="/login"
+                className="hidden rounded-full border border-border px-5 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-muted sm:inline-flex"
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className="hidden rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background transition-colors hover:bg-foreground/85 sm:inline-flex"
+              >
+                SignUp
+              </Link>
+            </>
+          }
+
+
+
+
 
           <button
             type="button"
@@ -95,20 +156,18 @@ export default function Navbar() {
             ))}
             <div className="mt-3 flex items-center gap-3 px-3">
               <Link
-                href="/events"
+                href="/login"
                 onClick={() => setOpen(false)}
-                aria-label="Notifications"
-                className="grid size-10 place-items-center rounded-full text-foreground hover:bg-muted"
+                className="rounded-full border border-border px-5 py-2 text-sm font-semibold text-foreground transition-colors hover:bg-muted"
               >
-                <Bell className="size-5" />
+                Login
               </Link>
               <Link
-                href="/my-ticket"
+                href="/signup"
                 onClick={() => setOpen(false)}
-                aria-label="My account"
-                className="grid size-9 place-items-center rounded-full bg-muted text-foreground"
+                className="rounded-full bg-foreground px-5 py-2 text-sm font-semibold text-background transition-colors hover:bg-foreground/85"
               >
-                <User className="size-5" />
+                SignUp
               </Link>
             </div>
           </nav>

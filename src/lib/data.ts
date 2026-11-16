@@ -18,6 +18,8 @@ export type EventItem = {
   participants: string;
   /** raw price in rupiah */
   price: number;
+  /** short summary shown on the event details page */
+  description: string;
 };
 
 export const categories: Category[] = [
@@ -98,6 +100,8 @@ export const featuredEvents: EventItem[] = [
     location: "Bandung, Indonesia",
     participants: "1.2k Registered",
     price: 350000,
+    description:
+      "A full-day summit where founders, engineers and product leaders explore what is next in AI, cloud and digital transformation — with keynote sessions, live demos and hands-on labs.",
   },
   {
     slug: "global-food-wine-festival",
@@ -109,6 +113,8 @@ export const featuredEvents: EventItem[] = [
     location: "Bali, Indonesia",
     participants: "850 Registered",
     price: 300000,
+    description:
+      "Taste your way through artisan stalls, live cooking demos and curated wine pairings from local and international chefs, wrapped up with live music as the sun goes down.",
   },
   {
     slug: "future-of-work-leadership-forum",
@@ -120,6 +126,8 @@ export const featuredEvents: EventItem[] = [
     location: "Jakarta, Indonesia",
     participants: "640 Registered",
     price: 550000,
+    description:
+      "Senior leaders gather to share practical playbooks on hybrid teams, talent retention and building organizations that stay resilient through constant change.",
   },
   {
     slug: "global-ai-big-data-expo-2026",
@@ -131,6 +139,8 @@ export const featuredEvents: EventItem[] = [
     location: "BSD City, Tangerang",
     participants: "500 Registered",
     price: 500000,
+    description:
+      "The region's largest expo for data and AI — exhibition booths, live product demos and talks from teams shipping machine learning at scale.",
   },
   {
     slug: "neon-nights-music-festival",
@@ -142,6 +152,8 @@ export const featuredEvents: EventItem[] = [
     location: "Yogyakarta, Indonesia",
     participants: "2.3k Registered",
     price: 275000,
+    description:
+      "Three stages, twenty acts and one unforgettable night of electronic and indie music under the neon lights.",
   },
   {
     slug: "creative-design-workshop",
@@ -153,6 +165,8 @@ export const featuredEvents: EventItem[] = [
     location: "Surabaya, Indonesia",
     participants: "180 Registered",
     price: 200000,
+    description:
+      "A hands-on design sprint where small teams go from a problem statement to a tested prototype in a single afternoon, guided by senior product designers.",
   },
   {
     slug: "startup-founders-meetup",
@@ -164,6 +178,8 @@ export const featuredEvents: EventItem[] = [
     location: "Jakarta, Indonesia",
     participants: "400 Registered",
     price: 150000,
+    description:
+      "A casual evening for early-stage founders to swap lessons, meet potential collaborators and hear from operators who have scaled startups before.",
   },
   {
     slug: "full-stack-developer-bootcamp-2026",
@@ -175,6 +191,8 @@ export const featuredEvents: EventItem[] = [
     location: "Surabaya, Indonesia",
     participants: "200 Registered",
     price: 300000,
+    description:
+      "Three days of intensive, project-based training covering modern React, REST APIs and deployment — beginners welcome, laptops required.",
   },
 ];
 
@@ -189,6 +207,8 @@ export const upcomingEvents: EventItem[] = [
     location: "Malang, East Java",
     participants: "500 Participating",
     price: 150000,
+    description:
+      "Local indie bands take over the stage for a loud, late night of guitar-driven sets and new releases.",
   },
   {
     slug: "creative-abstract-painting-workshop",
@@ -200,6 +220,8 @@ export const upcomingEvents: EventItem[] = [
     location: "Surabaya, East Java",
     participants: "200 Participating",
     price: 350000,
+    description:
+      "A guided painting session exploring color, texture and composition — all materials are provided, no experience needed.",
   },
   {
     slug: "city-charity-marathon-2026",
@@ -211,6 +233,8 @@ export const upcomingEvents: EventItem[] = [
     location: "Semarang, West Java",
     participants: "1.7k Participating",
     price: 250000,
+    description:
+      "Run or walk the 5K, 10K or half marathon route through the city while raising funds for local charities.",
   },
   {
     slug: "founders-funders-networking-night",
@@ -222,8 +246,17 @@ export const upcomingEvents: EventItem[] = [
     location: "Jakarta, Indonesia",
     participants: "350 Participating",
     price: 100000,
+    description:
+      "Connect startups with investors over drinks, short pitch slots and structured introductions that actually go somewhere.",
   },
 ];
+
+/** Every event in the app, featured first. */
+export const allEvents: EventItem[] = [...featuredEvents, ...upcomingEvents];
+
+export function getEventBySlug(slug: string): EventItem | undefined {
+  return allEvents.find((event) => event.slug === slug);
+}
 
 /** 350000 -> "350.000" */
 export function formatPrice(price: number): string {

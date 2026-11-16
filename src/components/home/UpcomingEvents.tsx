@@ -47,7 +47,7 @@ export default function UpcomingEvents() {
 
                 <h3 className="mt-3 text-xl font-bold leading-snug text-foreground md:text-2xl">
                   <Link
-                    href="/events"
+                    href={`/events/${event.slug}`}
                     className="transition-colors hover:text-blue-500"
                   >
                     {event.title}
@@ -70,7 +70,7 @@ export default function UpcomingEvents() {
                       {priceLabel(event.price)}
                     </span>
                     <Link
-                      href="/events"
+                      href={`/checkout/${event.slug}`}
                       className="rounded-lg bg-blue-500 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-600"
                     >
                       Book Now

@@ -15,6 +15,7 @@ export default function EventCard({
   className?: string;
 }) {
   const [liked, setLiked] = useState(false);
+  const detailsHref = `/events/${event.slug}`;
 
   return (
     <article
@@ -54,7 +55,10 @@ export default function EventCard({
 
       <div className="flex flex-1 flex-col p-5 pt-7">
         <h3 className="text-lg font-bold leading-snug text-foreground">
-          <Link href="/events" className="transition-colors hover:text-blue-500">
+          <Link
+            href={detailsHref}
+            className="transition-colors hover:text-blue-500"
+          >
             {event.title}
           </Link>
         </h3>
@@ -73,7 +77,7 @@ export default function EventCard({
             </span>
           </p>
           <Link
-            href="/events"
+            href={detailsHref}
             className="rounded-full bg-blue-500 px-5 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-600"
           >
             Details

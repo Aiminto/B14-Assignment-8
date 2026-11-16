@@ -126,6 +126,7 @@ export default function AddDestinationPage() {
       </div>
 
       <Card className="mx-auto mt-10 max-w-xl rounded-md py-8">
+
         <form onSubmit={handleSubmit} className="flex flex-col gap-5 px-8">
           <Field label="Destination Name">
             <Input
@@ -241,6 +242,8 @@ export default function AddDestinationPage() {
 
           </div>
         </form>
+
+        
       </Card>
     </main>
   );
